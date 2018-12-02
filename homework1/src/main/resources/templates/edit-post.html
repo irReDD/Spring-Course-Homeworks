@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head('Post to blog')"/>
+<body>
+<div th:replace="fragments/menu :: menu"/>
+<div class="container">
+    <div class="blog-main">
+        <h3 class="pb-3 mb-4 font-italic border-bottom">Edit a blog post</h3>
+
+        <div class="order-md-1">
+            <form class="needs-validation" novalidate="" th:action="@{__${#request.contextPath}__/edit-post}" th:object="${blogPost}" method="POST" enctype="multipart/form-data">
+                <input type="hidden" class="form-control" id="id" name="id" th:value="*{id}">
+
+                <div class="mb-3">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control" id="title" name="title" placeholder="Blog Post Title" required="" th:value="*{title}">
+                    <div class="invalid-feedback">
+                        Please enter a valid title.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="author">Author</label>
+                    <input type="text" class="form-control" id="author" name="author" placeholder="Your name" required="" th:value="*{author}">
+                    <div class="invalid-feedback">
+                        Please enter your name.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="content">Content:</label>
+                    <textarea class="form-control" rows="5" id="content" name="content" required="" th:field="*{content}"></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="tags">Tags</label>
+                    <input type="text" class="form-control" id="tags" name="tags" placeholder="Optional(separate by , )" th:value="*{tags}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="imageUrl">Image URL</label>
+                    <input type="text" class="form-control" id="imageUrl" name="imageUrl" placeholder="http://example.com/picture.jpg" th:value="*{imageUrl}">
+                </div>
+
+
+                <hr class="mb-4">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="status" name="status" th:checked="*{status}">
+                    <label class="custom-control-label" for="status">Make the blog post inactive</label>
+                </div>
+
+                <hr class="mb-4">
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Edit</button>
+            </form>
+        </div>
+        </div>
+    </div>
+<div th:replace="fragments/foot :: foot" />
+</body>
+</html>

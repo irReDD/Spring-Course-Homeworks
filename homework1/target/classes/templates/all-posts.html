@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head('Latest Blog posts')" />
+<body>
+    <div th:replace="fragments/menu :: menu"/>
+    <div class="container">
+        <div class="blog-main">
+            <h3 class="pb-3 mb-4 font-italic border-bottom">All Blog Posts</h3>
+
+
+    <div class="table-responsive">
+        <table class="table table-striped table-sm" style="width:100%">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Tags</th>
+                <th>Status</th>
+                <th>Edit</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr th:each="row : ${allPosts}">
+                    <form th:id="'edit' + ${row.id}" th:action="@{__${#request.contextPath}__/edit-post}" method="GET">
+                        <input type="hidden" name="id" required="" th:value="${row.id}">
+                    </form>
+                    <form th:id="'delete' + ${row.id}" th:action="@{__${#request.contextPath}__/delete-post}" method="POST">
+                        <input type="hidden"  name="id" required="" th:value="${row.id}">
+                    </form>
+
+                    <td style="width:15%" th:text="${row.id}"></td>
+                    <td style="width:40%" th:text="${row.title}"></td>
+                    <td style="width:20%" th:text="${row.tags}"></td>
+                    <td style="width:10%">
+                        <font th:if="${row.status}" color="green">Active </font>
+                        <font th:if="${!row.status}">Inactive</font>
+                    </td>
+                    <td style="width:15%">
+                        <button class="btn btn-primary" type="submit" th:form="'edit' + ${row.id}" >Edit</button>
+                        <button class="btn btn-danger" type="submit" th:form="'delete' + ${row.id}">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+        </div>
+    </div>
+
+    <div th:replace="fragments/foot :: foot" />
+</body>
+</html>

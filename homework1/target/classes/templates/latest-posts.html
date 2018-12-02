@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head('Latest Blog posts')" />
+<body>
+    <div th:replace="fragments/menu :: menu"/>
+    <div class="container">
+        <div class="blog-main">
+            <h3 class="pb-3 mb-4 font-italic border-bottom">Latest Blog Posts</h3>
+            <div class="input-group">
+                <form id="status-form" method="GET"></form>
+                <select class="form-control" name="status" form="status-form">
+                    <option th:value="'all'">Show All</option>
+                    <option th:value="'active'" th:selected="*{status} == 'active'">Show only active</option>
+                    <option th:value="'inactive'" th:selected="*{status} == 'inactive'">Show only inactive</option>
+                </select>
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-secondary" form="status-form">Filter</button>
+                </div>
+            </div>
+            <hr>
+            <div class="row mb-2">
+                <div class="col-md-6" th:each="row : ${allPosts}">
+                    <div class="blog-post" >
+                        <h2 class="blog-post-title" th:text="${row.title}"></h2>
+                        <p class="blog-post-meta" >on <span th:text="${row.postDate}"></span> by <span th:text="${row.author}"></span></p>
+                        <img th:if="${row.imageUrl.length() > 0}" th:src="${row.imageUrl}" class="card-img-right flex-auto d-none d-lg-block"
+                             alt="Thumbnail" style="max-width: 100%; padding-bottom: 15px;" data-holder-rendered="true">
+                        <p th:text="${row.content}"></p>
+                        <hr>
+                        <p class="blog-post-meta" th:if="${row.tags.size() > 1}" th:text="${row.tags}"></p>
+                        <p class="blog-post-meta">Status:
+                            <font th:if="${row.status}" color="green">Active </font>
+                            <font th:if="${!row.status}">Inactive</font>
+                        </p>
+                        <hr>
+                    </div> <!-- /.blog-post -->
+                </div> <!-- /col-md-6"-->
+            </div> <!-- /.row mb-2 -->
+        </div>
+    </div>
+    <div th:replace="fragments/foot :: foot" />
+</body>
+</html>
