@@ -29,7 +29,7 @@ public class BlogPostServiceImpl implements BlogPostService {
                     LocalDateTime.now(),
                     "Placeholder Blog Post",
                     "John Doe",
-                    "#Currently there are no blog posts added.\n" +
+                    "# Currently there are no blog posts added.\n" +
                             "This blog post shows how the blog post will look like when added.\n" +
                             "It has to be able to be converted from markdown in a future release.",
                     tags,

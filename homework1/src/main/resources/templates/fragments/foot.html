@@ -1,6 +1,6 @@
 <div th:fragment="foot" xmlns:th="http://www.thymeleaf.org">
-    <script type="text/javascript" src="webjars/jquery/3.3.1/jquery.min.js"></script>
-    <script type="text/javascript" src="webjars/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="webjars/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="webjars/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
     <script>
       // Example starter JavaScript for disabling form submissions if there are invalid fields
@@ -23,5 +23,9 @@
           });
         }, false);
       })();
+      $('.custom-file-input').on('change', function() {
+          let fileName = $(this).val().split('\\').pop();
+          $(this).next('.custom-file-label').addClass("selected").html(fileName);
+      });
     </script>
 </div>

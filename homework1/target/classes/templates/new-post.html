@@ -8,7 +8,8 @@
         <h3 class="pb-3 mb-4 font-italic border-bottom">Create a new blog post</h3>
 
         <div class="order-md-1">
-            <form class="needs-validation" novalidate="" th:action="@{__${#request.contextPath}__/new-post}" th:object="${blogPost}" method="POST" enctype="multipart/form-data">
+            <form class="needs-validation" novalidate="" th:action="@{__${#request.contextPath}__/new-post}" th:object="${blogPost}"
+                  method="POST" enctype="multipart/form-data">
                 <input type="hidden" class="form-control" id="id" name="id" value="id">
                 <div class="mb-3">
                     <label for="title">Title</label>
@@ -36,11 +37,33 @@
                     <input type="text" class="form-control" id="tags" name="tags" placeholder="Optional(separate by , )" th:value="*{tags}">
                 </div>
 
-                <div class="mb-3">
-                    <label for="imageUrl">Image URL</label>
-                    <input type="text" class="form-control" id="imageUrl" name="imageUrl" placeholder="http://example.com/picture.jpg" th:value="*{imageUrl}">
+<!--                <div class="mb-3">-->
+<!--                    <label for="imageUrl">Image URL</label>-->
+<!--                    <input type="text" class="form-control" id="imageUrl" name="imageUrl" placeholder="http://example.com/picture.jpg" th:value="*{imageUrl}">-->
+<!--                </div>-->
+
+<!--                <div class="mb-3">-->
+<!--                    <div class="custom-file">-->
+<!--                        <input type="file" class="custom-file-input" id="imageUrl" name="imageUrl" th:value="*{imageUrl}">-->
+<!--                        <label class="custom-file-label" for="imageUrl">Choose file</label>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="imageUploadAddon">Upload Image</span>
+                    </div>
+                    <div class="custom-file">
+                        <input th:value="*{imageUrl}" type="file" class="custom-file-input" id="imageUrl" aria-describedby="imageUploadAddon">
+                        <label class="custom-file-label" for="imageUrl">Choose file</label>
+                    </div>
                 </div>
 
+
+                <!--                <table>-->
+<!--                    <tr><td>File to upload:</td><td>-->
+<!--                        <input type="file" name="imageUrl" id="imageUrl" th:value="*{imageUrl}" /></td></tr>-->
+<!--                </table>-->
 
                 <hr class="mb-4">
                 <div class="custom-control custom-checkbox">
@@ -51,6 +74,24 @@
                 <hr class="mb-4">
                 <button class="btn btn-primary btn-lg btn-block" type="submit">Post</button>
             </form>
+
+
+            <div>
+                <form method="POST" enctype="multipart/form-data" action="/upload-image">
+                    <table>
+                        <tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
+                        <tr><td></td><td><input type="submit" value="Upload" /></td></tr>
+                    </table>
+                </form>
+            </div>
+
+            <div>
+                <ul>
+                    <li th:each="file : ${files}">
+                        <a th:href="${file}" th:text="${file}" />
+                    </li>
+                </ul>
+            </div>
         </div>
         </div>
     </div>

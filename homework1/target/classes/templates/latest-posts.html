@@ -22,15 +22,15 @@
                 <div class="col-md-6" th:each="row : ${allPosts}">
                     <div class="blog-post" >
                         <h2 class="blog-post-title" th:text="${row.title}"></h2>
-                        <p class="blog-post-meta" >on <span th:text="${row.postDate}"></span> by <span th:text="${row.author}"></span></p>
+                        <p class="blog-post-meta" >on <span th:text="${row.getHRPostDate()}"></span> by <span th:text="${row.author}"></span></p>
                         <img th:if="${row.imageUrl.length() > 0}" th:src="${row.imageUrl}" class="card-img-right flex-auto d-none d-lg-block"
                              alt="Thumbnail" style="max-width: 100%; padding-bottom: 15px;" data-holder-rendered="true">
-                        <p th:text="${row.content}"></p>
+                        <div th:utext="${row.getParsedContent()}"></div>
                         <hr>
                         <p class="blog-post-meta" th:if="${row.tags.size() > 1}" th:text="${row.tags}"></p>
                         <p class="blog-post-meta">Status:
-                            <font th:if="${row.status}" color="green">Active </font>
-                            <font th:if="${!row.status}">Inactive</font>
+                            <span th:if="${row.status}" style="color: green; ">Active </span>
+                            <span th:if="${!row.status}">Inactive</span>
                         </p>
                         <hr>
                     </div> <!-- /.blog-post -->

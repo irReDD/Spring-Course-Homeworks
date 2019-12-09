@@ -3,6 +3,7 @@ package com.stodorov.spring.controllers;
 import com.stodorov.spring.model.BlogPost;
 import com.stodorov.spring.model.BlogPostBase;
 import com.stodorov.spring.services.BlogPostService;
+import com.stodorov.spring.services.ImageStoreService;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,8 +21,12 @@ import java.util.List;
 @Controller
 public class BlogPostController {
     private static final Logger log = org.slf4j.LoggerFactory.getLogger(BlogPostController.class);
+
     @Autowired
     BlogPostService service;
+
+    @Autowired
+    ImageStoreService imageStore;
 
     @GetMapping(value = "/latest-posts")
     public ModelAndView getPosts(String status) {
@@ -44,7 +49,7 @@ public class BlogPostController {
     }
 
     @GetMapping(value = "/new-post")
-    public String newPost(@ModelAttribute BlogPost blogPost) {
+    public String newPost(@ModelAttribute("blogPost") BlogPost blogPost) {
         return "new-post";
     }
 
